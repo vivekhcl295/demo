@@ -1,16 +1,16 @@
-spring:
-  cloud:
-    config:
-      name: restaurant
-      enabled: true
-      label: main
-      fail-fast: true
-      cloud:
-        config:
-          uri:
-            - http://localhost:8888/
-          username: config_username
-          password: config_password
-          fail-fast: true
-  profiles:
-    active: dev
+#spring:
+#  cloud:
+#    config:
+#      name: restaurant
+#      enabled: true
+#      label: main
+#      fail-fast: true
+#      cloud:
+#        config:
+#          uri:
+#            - http://localhost:8888/
+#          username: config_username
+#          password: config_password
+#          fail-fast: true
+#  profiles:
+#    active: dev
