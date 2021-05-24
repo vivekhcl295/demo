@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        native:          search-locations:          - classpath:/config-props/{application}/{profile}
+  profiles:    active:    - native
+#  security:
+#    basic:
+#      enabled: true
+#    user:
+#      name: config_username
+#      password: config_password

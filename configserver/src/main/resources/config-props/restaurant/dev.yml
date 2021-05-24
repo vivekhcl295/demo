@@ -1,0 +1,14 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+
+# Specifies your Active Directory ID:
+azure:
+  activedirectory:
+    tenant-id: 4675797b-3a63-4c13-8ab3-1ba08ff829d0
+    client-id: d2b516eb-31b8-4206-8620-4eae4d08b55f
+    client-secret: 0r0l6.dsRR~~reaW1WR6k67tRo~X.7_xPO
+    user-group:
+      allowed-groups: restaurant

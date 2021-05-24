@@ -1,0 +1,23 @@
+server:
+    port: 9090
+
+spring:
+  application:
+    name: restaurant
+  cloud:
+    config:
+      uri:
+      - http://localhost:8888
+      username: config_username
+      password: config_password
+      fail-fast: true
+      label: master
+  profiles:
+    active:
+    - dev
+          
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env, health
