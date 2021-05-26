@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface RestaurantRepo extends MongoRepository<Restaurant, ObjectId> {
     List<Restaurant> findAll();
+    Restaurant findByRestaurantId(Long restaurantId);
     Restaurant save(Restaurant restaurant);
 }

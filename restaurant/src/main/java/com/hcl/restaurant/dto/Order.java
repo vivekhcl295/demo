@@ -2,6 +2,7 @@ package com.hcl.restaurant.dto;
 
 import org.bson.types.ObjectId;
 
+import java.time.Instant;
 import java.util.Set;
 
 public class Order {
@@ -11,6 +12,7 @@ public class Order {
     private Double orderAmount;
     private Payment payment;
     private Long restaurantId;
+    private Instant createdDate;
 
     public ObjectId get_id() {
         return _id;
@@ -58,6 +60,14 @@ public class Order {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

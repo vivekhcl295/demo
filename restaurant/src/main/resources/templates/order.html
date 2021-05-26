@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      name="viewport"
+    />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <title>Order Invoice</title>
+  </head>
+  <body>
+    <table align="center" border="2">
+      <thead>
+        <th colspan="2">
+          <h2>Order #<span th:text="${orderEntry.orderId}"></span></h2>
+        </th>
+        <th colspan="2">
+          <span th:text="${orderEntry.createdDate}" />
+        </th>
+      </thead>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${orderEntry.orderItems}">
+          <td class="pl-4 text-left" th:text="${item.itemName}"></td>
+          <td th:text="${item.itemQty}"></td>
+          <td th:text="${item.itemPrice}"></td>
+          <td class="pr-4" th:text="${item.itemPrice * item.itemQty}"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <h3>Grand Total:</h3>
+          </td>
+          <td colspan="2">
+            <span th:text="${orderEntry.orderAmount}" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <h3>Payment Method:</h3>
+          </td>
+          <td colspan="2">
+            <span th:text="${orderEntry.payment.paymentMethod}" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

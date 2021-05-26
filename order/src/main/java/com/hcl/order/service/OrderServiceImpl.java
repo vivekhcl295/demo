@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Cacheable(value = "order", key = "#orderId")
+    @Cacheable(value = "Order", key = "#orderId")
     public Order findByOrderId(Long orderId) {
         return orderRepo.findByOrderId(orderId);
     }

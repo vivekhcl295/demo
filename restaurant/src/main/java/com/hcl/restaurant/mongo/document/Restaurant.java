@@ -1,8 +1,11 @@
 package com.hcl.restaurant.mongo.document;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 
 @Document("restaurant")
 public class Restaurant {
@@ -11,6 +14,8 @@ public class Restaurant {
     private Long restaurantId;
     private String name;
     private String address;
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     public Restaurant() {}
 
@@ -51,4 +56,13 @@ public class Restaurant {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
 }

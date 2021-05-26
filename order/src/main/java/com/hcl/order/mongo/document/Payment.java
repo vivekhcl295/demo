@@ -1,9 +1,15 @@
 package com.hcl.order.mongo.document;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
+
 public class Payment {
     private Long paymentId;
     private PaymentMethods paymentMethod;
     private Double paymentAmount;
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     public Payment() {}
 
@@ -21,7 +27,7 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public PaymentMethods getPaymentMethod(PaymentMethods cc) {
+    public PaymentMethods getPaymentMethod() {
         return paymentMethod;
     }
 
@@ -36,4 +42,13 @@ public class Payment {
     public void setPaymentAmount(Double paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
 }

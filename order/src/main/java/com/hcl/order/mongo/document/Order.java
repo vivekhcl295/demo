@@ -1,19 +1,26 @@
 package com.hcl.order.mongo.document;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.util.Set;
 
-@Document("orders")
+@Document("order")
 public class Order {
     private ObjectId _id;
 
+    @Indexed(unique = true)
     private Long orderId;
     private Set<OrderItem> orderItems;
     private Double orderAmount;
     private Payment payment;
     private Long restaurantId;
+
+    @CreatedDate
+    private Instant createdDate;
 
     public Order() {}
 
@@ -71,6 +78,14 @@ public class Order {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

@@ -13,7 +13,7 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public String getPaymentMethod(String paymentMethod) {
+    public String getPaymentMethod() {
         return paymentMethod;
     }
 

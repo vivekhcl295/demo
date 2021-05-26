@@ -8,7 +8,12 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: orders
+      database: order
+  main:
+    banner-mode: off
+  output:
+    ansi:
+      enabled: ALWAYS
 
 log4j:
   category:

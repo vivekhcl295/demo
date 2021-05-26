@@ -9,6 +9,8 @@ spring:
       host: localhost
       port: 27017
       database: restaurant
+  thymeleaf:
+    cache: false
 
 log4j:
   category:

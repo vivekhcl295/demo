@@ -7,6 +7,7 @@ import com.hcl.order.mongo.document.Payment;
 import com.hcl.order.mongo.document.PaymentMethods;
 import com.hcl.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.BindException;
@@ -27,7 +28,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Order> orders(
             @RequestParam(value = "byRestaurantId", required = false) Long restaurantId
     ) throws BindException {
@@ -41,12 +42,12 @@ public class OrderController {
         return orderService.findAll();
     }
 
-    @GetMapping("/{orderId}")
+    @GetMapping(path = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Order orderById(@PathVariable("orderId") Long orderId ) {
         return orderService.findByOrderId(orderId);
     }
 
-    @GetMapping("/dummy")
+    @GetMapping(path = "/dummy", produces = MediaType.APPLICATION_JSON_VALUE)
     public Order dummyOrder() {
         Payment payment = new Payment();
         payment.setPaymentId(101L);
