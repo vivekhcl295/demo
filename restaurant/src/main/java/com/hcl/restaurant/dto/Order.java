@@ -1,12 +1,10 @@
 package com.hcl.restaurant.dto;
 
-import org.bson.types.ObjectId;
-
 import java.time.Instant;
 import java.util.Set;
 
 public class Order {
-    private ObjectId _id;
+    private Long _id;
     private Long orderId;
     private Set<OrderItem> orderItems;
     private Double orderAmount;
@@ -14,11 +12,11 @@ public class Order {
     private Long restaurantId;
     private Instant createdDate;
 
-    public ObjectId get_id() {
+    public Long get_id() {
         return _id;
     }
 
-    public void set_id(ObjectId _id) {
+    public void set_id(Long _id) {
         this._id = _id;
     }
 

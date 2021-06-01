@@ -4,25 +4,61 @@ server:
 spring:
   application:
     name: gateway
-  cloud:
-    gateway:
-      routes:
-        - id: restaurants
-          uri: http://localhost:9090
-          predicates:
-            - Path=/api/restaurants/**
-        - id: orders
-          uri: http://localhost:9091
-          predicates:
-            - Path=/api/orders/**
-
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: restaurants
+#          uri: http://localhost:9090
+#          predicates:
+#            - Path=/api/restaurants/**
+#        - id: orders
+#          uri: http://localhost:9091
+#          predicates:
+#            - Path=/api/orders/**
+  security:
+    oauth2:
+      client:
+        provider:
+          azure-oauth-provider:
+            authorization-uri: "https://login.microsoftonline.com/4675797b-3a63-4c13-8ab3-1ba08ff829d0/oauth2/authorize"
+            jwk-set-uri: "https://login.microsoftonline.com/4675797b-3a63-4c13-8ab3-1ba08ff829d0/discovery/keys"
+            token-uri: "https://login.microsoftonline.com/4675797b-3a63-4c13-8ab3-1ba08ff829d0/oauth2/token"
+            user-info-uri: "https://login.microsoftonline.com/4675797b-3a63-4c13-8ab3-1ba08ff829d0/openid/userinfo"
+            user-name-attribute: sub
+        registration:
+          gateway:
+            authorization-grant-type: authorization_code
+#            client-authentication-method: basic
+            client-id: 1c2e5cc2-f1d4-4864-ba22-a2929e770fc6
+            #            client-name: azure
+            client-secret: zp3lxBBhH~aR2zIy928sfcxp_k-0P3rcI-
+            provider: azure-oauth-provider
+            redirect-uri: "http://localhost:8889/login/oauth2/code/{registrationId}"
+#            redirect-uri-template: "{baseUrl}/login/oauth2/code/"
+            scope:
+              - openid
+              - "https://graph.microsoft.com/user.read"
+              - "api://afaff8e8-0143-4412-a64f-4896cbf4dd9b/restaurant"
+              - "api://77a1ba6a-a2f2-4fdc-858d-afc832639ee3/Order.Read"
 logging:
   level:
-    org:
-      springframework:
-        web:
-          servlet:
-            DispatcherServlet: DEBUG
-      core:
-        codec:
-          StringDecoder: TRACE
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.web.HttpLogging: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+
+#azure:
+#  activedirectory:
+##    client-id: 1c2e5cc2-f1d4-4864-ba22-a2929e770fc6
+##    client-secret: zp3lxBBhH~aR2zIy928sfcxp_k-0P3rcI-
+#    tenant-id: 4675797b-3a63-4c13-8ab3-1ba08ff829d0
+#    user-group:
+#      allowed-group-names: order
+#      enable-full-list: false
+#    authorization-clients:
+#      graph:
+#        scopes:
+#          - https://graph.microsoft.com/User.Read
+#          - https://graph.microsoft.com/Directory.AccessAsUser.All

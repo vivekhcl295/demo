@@ -4,24 +4,27 @@ server:
 spring:
   application:
     name: restaurant
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: restaurant
+  datasource:
+    url: jdbc:mysql://localhost:3306/restaurant
+    username: root
+    password: mysql
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
   thymeleaf:
     cache: false
-
-log4j:
-  category:
-    org:
-      springframework:
-        data:
-          mongodb: DEBUG
-  appender:
-    stdout:
-      layout:
-        ConversionPattern: '%d{ABSOLUTE} %5p %40.40c:%4L - %m%n'
+  main:
+    banner-mode: off
+  output:
+    ansi:
+      enabled: ALWAYS
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: "https://login.microsoftonline.com/4675797b-3a63-4c13-8ab3-1ba08ff829d0/discovery/v2.0/keys"
 
 order:
   service:

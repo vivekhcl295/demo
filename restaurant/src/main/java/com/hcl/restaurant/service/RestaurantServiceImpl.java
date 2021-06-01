@@ -1,14 +1,17 @@
 package com.hcl.restaurant.service;
 
 import com.hcl.restaurant.dto.Order;
-import com.hcl.restaurant.mongo.document.Restaurant;
-import com.hcl.restaurant.mongo.repo.RestaurantRepo;
+import com.hcl.restaurant.entity.Restaurant;
+import com.hcl.restaurant.entity.Status;
+import com.hcl.restaurant.repo.RestaurantRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class RestaurantServiceImpl implements RestaurantService{
 
     private RestaurantRepo restaurantRepo;
@@ -41,5 +44,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Override
     public List<Order> findAllOrdersByRestaurantId(Long restaurantId) {
         return orderService.findAllOrdersByRestaurantId(restaurantId);
+    }
+
+    @Override
+    public int updateRestaurant(Long restaurantId, Status status) {
+        return restaurantRepo.updateRestaurant(restaurantId, status);
     }
 }

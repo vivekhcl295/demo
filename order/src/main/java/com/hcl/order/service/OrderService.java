@@ -1,14 +1,14 @@
 package com.hcl.order.service;
 
-import com.hcl.order.mongo.document.Order;
+import com.hcl.order.entity.OrderEntity;
 
 import java.util.List;
 
 public interface OrderService {
 
-    List<Order> findAll();
-    Order findByOrderId(Long orderId);
-    Order save(Order order);
+    List<OrderEntity> findAll();
+    OrderEntity findByOrderId(Long orderId);
+    OrderEntity save(OrderEntity orderEntity);
 
-    List<Order> findAllByRestaurantId(Long restaurantId);
+    List<OrderEntity> findAllByRestaurantId(Long restaurantId);
 }
