@@ -1,17 +1,16 @@
-package com.hcl.customer.entity;
-
-import org.springframework.validation.annotation.Validated;
+package com.hcl.driver.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "customer")
-@Validated
-public class Customer extends Audit {
-
-    private Long customerId;
-    @NotNull(message = "Customer Email Id Cannot be null")
+@Table(name = "driver")
+public class Driver extends Audit {
+    private Long driverId;
+    @NotNull(message = "Driver Email Id Cannot be null")
     @Email
     private String email;
     @Size(min = 10, max = 10, message = "Phone should be 10 Digit long")
@@ -20,12 +19,12 @@ public class Customer extends Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getCustomerId() {
-        return customerId;
+    public Long getDriverId() {
+        return driverId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
     }
 
     public String getEmail() {
