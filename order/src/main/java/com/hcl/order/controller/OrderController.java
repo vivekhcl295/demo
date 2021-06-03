@@ -1,7 +1,7 @@
 package com.hcl.order.controller;
 
 import com.hcl.order.constant.API_CONSTANTS;
-import com.hcl.order.entity.OrderEntity;
+import com.hcl.order.entity.Order;
 import com.hcl.order.entity.OrderItem;
 import com.hcl.order.entity.Payment;
 import com.hcl.order.entity.PaymentMethod;
@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderEntity> orders(
+    public List<Order> orders(
             @RequestParam(value = "byRestaurantId", required = false) @Min(1) Long restaurantId
     ) throws BindException {
         if (restaurantId != null) {
@@ -49,21 +49,17 @@ public class OrderController {
     }
 
     @GetMapping(path = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderEntity orderById(@PathVariable("orderId") @Min(1) Long orderId ) {
+    public Order orderById(@PathVariable("orderId") @Min(1) Long orderId ) {
         return orderService.findByOrderId(orderId);
     }
 
     @PostMapping
-    public ResponseEntity<OrderEntity> save(@RequestBody @Valid OrderEntity orderEntity) {
-        if (orderEntity.getOrderItems().size() <= 0) {
-            throw new ConstraintViolationException("At least one order item is required", null);
-        }
-
-        return ResponseEntity.ok(orderService.save(orderEntity));
+    public ResponseEntity<Order> save(@RequestBody @Valid Order order) {
+        return ResponseEntity.ok(orderService.save(order));
     }
 
     @GetMapping(path = "/dummy", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderEntity dummyOrder() {
+    public Order dummyOrder() {
         Payment payment = new Payment();
         payment.setPaymentId(101L);
         payment.setPaymentMethod(PaymentMethod.CC);
@@ -75,12 +71,12 @@ public class OrderController {
         item.setItemPrice(1000.00);
         item.setItemQty(1);
 
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderId(101L);
-        orderEntity.setOrderItems(new HashSet<>(Arrays.asList(item)));
-        orderEntity.setOrderAmount(1000.00);
-        orderEntity.setPayment(payment);
-        orderEntity.setRestaurantId(101L);
-        return orderService.save(orderEntity);
+        Order order = new Order();
+        order.setOrderId(101L);
+        order.setOrderItems(new HashSet<>(Arrays.asList(item)));
+        order.setOrderAmount(1000.00);
+        order.setPayment(payment);
+        order.setRestaurantId(101L);
+        return orderService.save(order);
     }
 }

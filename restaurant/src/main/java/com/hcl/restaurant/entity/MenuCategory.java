@@ -26,6 +26,7 @@ public class MenuCategory extends Audit {
         this.categoryId = categoryId;
     }
 
+    @Column(unique = true, nullable = false)
     public String getTitle() {
         return title;
     }
@@ -42,7 +43,7 @@ public class MenuCategory extends Audit {
         this.status = status;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menuCategory")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menuCategory", cascade = CascadeType.ALL)
     public Set<MenuItem> getMenuItems() {
         return menuItems;
     }
@@ -52,8 +53,8 @@ public class MenuCategory extends Audit {
     }
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "restaurantId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurantId")
     public Restaurant getRestaurant() {
         return restaurant;
     }

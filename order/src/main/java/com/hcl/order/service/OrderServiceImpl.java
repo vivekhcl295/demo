@@ -1,6 +1,6 @@
 package com.hcl.order.service;
 
-import com.hcl.order.entity.OrderEntity;
+import com.hcl.order.entity.Order;
 import com.hcl.order.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,23 +21,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderEntity> findAll() {
+    public List<Order> findAll() {
         return orderRepo.findAll();
     }
 
     @Override
     @Cacheable(value = "Order", key = "#orderId")
-    public OrderEntity findByOrderId(Long orderId) {
+    public Order findByOrderId(Long orderId) {
         return orderRepo.findByOrderId(orderId);
     }
 
     @Override
-    public OrderEntity save(OrderEntity orderEntity) {
-        return orderRepo.save(orderEntity);
+    public Order save(Order order) {
+        return orderRepo.save(order);
     }
 
     @Override
-    public List<OrderEntity> findAllByRestaurantId(Long restaurantId) {
+    public List<Order> findAllByRestaurantId(Long restaurantId) {
         return orderRepo.findAllByRestaurantId(restaurantId);
     }
 }

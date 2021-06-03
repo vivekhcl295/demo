@@ -1,14 +1,14 @@
 package com.hcl.order.service;
 
-import com.hcl.order.entity.OrderEntity;
+import com.hcl.order.entity.Order;
 
 import java.util.List;
 
 public interface OrderService {
 
-    List<OrderEntity> findAll();
-    OrderEntity findByOrderId(Long orderId);
-    OrderEntity save(OrderEntity orderEntity);
+    List<Order> findAll();
+    Order findByOrderId(Long orderId);
+    Order save(Order order);
 
-    List<OrderEntity> findAllByRestaurantId(Long restaurantId);
+    List<Order> findAllByRestaurantId(Long restaurantId);
 }

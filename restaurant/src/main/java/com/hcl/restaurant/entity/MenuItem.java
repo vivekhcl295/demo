@@ -3,6 +3,7 @@ package com.hcl.restaurant.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "menu_item")
@@ -10,6 +11,7 @@ public class MenuItem extends Audit{
     private Long itemId;
     private String title;
     private String description;
+    @Positive
     private Double price;
     private Status status;
     private MenuCategory menuCategory;
@@ -24,6 +26,7 @@ public class MenuItem extends Audit{
         this.itemId = itemId;
     }
 
+    @Column(unique = true, nullable = false)
     public String getTitle() {
         return title;
     }
@@ -57,8 +60,8 @@ public class MenuItem extends Audit{
     }
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "categoryId", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryId")
     public MenuCategory getMenuCategory() {
         return menuCategory;
     }

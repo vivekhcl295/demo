@@ -4,17 +4,25 @@ server:
 spring:
   application:
     name: gateway
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: restaurants
-#          uri: http://localhost:9090
-#          predicates:
-#            - Path=/api/restaurants/**
-#        - id: orders
-#          uri: http://localhost:9091
-#          predicates:
-#            - Path=/api/orders/**
+  cloud:
+    gateway:
+      routes:
+        - id: restaurants
+          uri: http://localhost:9090
+          predicates:
+            - Path=/api/restaurants/**
+        - id: orders
+          uri: http://localhost:9091
+          predicates:
+            - Path=/api/orders/**
+        - id: customers
+          uri: http://localhost:9093
+          predicates:
+            - Path=/api/customers/**
+        - id: drivers
+          uri: http://localhost:9094
+          predicates:
+            - Path=/api/drivers/**
   security:
     oauth2:
       client:

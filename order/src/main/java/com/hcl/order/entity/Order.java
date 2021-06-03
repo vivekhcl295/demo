@@ -1,27 +1,30 @@
 package com.hcl.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 import static com.hcl.order.constant.API_MESSAGES.PAYMENT_NOT_NULL;
 
 @Entity
-@Table(name="order")
-public class OrderEntity extends Audit {
+@Table(name="tbl_order")
+@JsonPropertyOrder({
+        "orderId", "customerId", "restaurantId" ,"orderStatus",
+        "orderItems", "orderAmount", "payment"
+})
+@Validated
+public class Order extends Audit {
     private Long orderId;
     @NotNull
+    @Size(min = 1, message = "At least one order item is required")
     private Set<OrderItem> orderItems;
     @NotNull
     private Double orderAmount;
     @Null
     private OrderStatus orderStatus;
-    @Pattern(
-            regexp = "[0-9]?[0-9]?(\\.[0-9][0-9]?)?"
-    )
     @NotNull(message = PAYMENT_NOT_NULL)
     private Payment payment;
     @NotNull
@@ -50,8 +53,7 @@ public class OrderEntity extends Audit {
         this.orderItems = orderItems;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "order", optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "paymentId")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
     public Payment getPayment() {
         return payment;
     }

@@ -4,22 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="order_items")
+@Table(name="order_item")
 public class OrderItem extends Audit {
     private Integer itemId;
-    @NotNull
+    @NotBlank
     private String itemName;
-    @Pattern(
-            regexp = "[0-9]?[0-9]?(\\.[0-9][0-9]?)?"
-    )
     private Double itemPrice;
     @Min(1)
     private Integer itemQty;
-    private OrderEntity orderEntity;
+    private Order order;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,13 +52,13 @@ public class OrderItem extends Audit {
     }
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId", nullable = false)
-    public OrderEntity getOrder() {
-        return orderEntity;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrder(OrderEntity orderEntity) {
-        this.orderEntity = orderEntity;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

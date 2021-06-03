@@ -6,20 +6,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name= "payment")
+@Table(name= "payment", schema = "orderdb")
 public class Payment extends Audit {
     private Long paymentId;
-    @Pattern(
-       regexp = "CC|NB|DB",
-       flags = Pattern.Flag.CASE_INSENSITIVE,
-       message = "CC(Credit Card), NB(Net Banking), DB(Debit Card) only accepted currently."
-    )
     private PaymentMethod paymentMethod;
-    @Pattern(
-       regexp = "[0-9]?[0-9]?(\\.[0-9][0-9]?)?"
-    )
     private Double paymentAmount;
-    private OrderEntity orderEntity;
+    private Order order;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,13 +21,13 @@ public class Payment extends Audit {
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId")
-    public OrderEntity getOrder() {
-        return orderEntity;
+    @JoinColumn(name = "orderId", nullable = false)
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrder(OrderEntity orderEntity) {
-        this.orderEntity = orderEntity;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public void setPaymentId(Long paymentId) {
